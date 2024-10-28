@@ -50,4 +50,4 @@ if __name__ == "__main__":
 
     df = load_data(path_input)
     generate_qr_codes(df, path_output)
-    print("Semua QR udah dibuat boss!")
+    print("Semua QR udah dibuat!")
