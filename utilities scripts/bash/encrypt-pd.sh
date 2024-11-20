@@ -1,6 +1,4 @@
-#!/bin/bash
-
-# Prompt untuk input folder dan output folder
+#input folder dan output folder
 read -p "Masukkan path folder PDF: " input_folder
 read -p "Masukkan path folder output: " output_folder
 
