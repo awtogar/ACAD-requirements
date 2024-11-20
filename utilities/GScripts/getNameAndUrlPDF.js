@@ -1,35 +1,43 @@
 function myFunction() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getActiveSheet();
-  // Mulai dari baris aktif
-  var startRow = sheet.getActiveCell().getRow();
-  // Masukin id lokasi drive
-  var folder = DriveApp.getFolderById("1YhtlWa29jL4b2QJXfy8n36qgTSjmWO4K");
-  var files = folder.getFiles();
-  
-  // set jadi data array
-  var data = [];
-  var row = startRow; // Mulai dari baris yang aktif di spreadsheet
-  while (files.hasNext()) {
+  var lastColumn = sheet.getLastColumn();
+  var lastRow = sheet.getLastRow();
+  var emptyColumn = -1;
 
-    var file = files.next();
-    // Dapetin nama file
-    var name = file.getName();
-     // Dapetin URL file
-    var url = file.getUrl();     
-    
-    data.push([name, url]); 
+  for (var col = 1; col <= lastColumn; col++) {
+    var isEmpty = true;
+    for (var row = 1; row <= lastRow; row++) {
+      var cellValue = sheet.getRange(row, col).getValue();
+      if (cellValue !== "") {
+        isEmpty = false;
+        break;
+      }
+    }
+    if (isEmpty) {
+      emptyColumn = col;
+      break;
+    }
   }
 
-  // Set header
-  /// Masukin nama file dari google drive ke Column J dan kasih nama header _PDF lalu dengan row isi nama gdrive file nya
-  /// Masukin url file dari google drive ke Column J dan kasih nama header _Link lalu dengan row isi link gdrive file nya
+  if (emptyColumn == -1) {
+    emptyColumn = lastColumn + 1;
+  }
 
-  sheet.getRange(startRow, 10).setValue("_PDF");
-  sheet.getRange(startRow, 11).setValue("_Link");
+  sheet.getRange(1, emptyColumn).setValue("FileName");
+  sheet.getRange(1, emptyColumn + 1).setValue("FileLink");
 
-  // Masukin data ke baris pertama setelah header
+  var folder = DriveApp.getFolderById("id drive disini");
+  var files = folder.getFiles();
+  var data = [];
+
+  while (files.hasNext()) {
+    var file = files.next();
+    var name = file.getName();
+    var url = file.getUrl();
+    data.push([name, url]);
+  }
   if (data.length > 0) {
-    sheet.getRange(startRow + 1, 10, data.length, 2).setValues(data);  
+    sheet.getRange(2, emptyColumn, data.length, 2).setValues(data);
   }
 }
