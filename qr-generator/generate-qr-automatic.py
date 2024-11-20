@@ -51,7 +51,7 @@ if __name__ == "__main__":
     path_input = input("Masukkan path file CSV/XLSX kamu (misal: 'data/daftar_link.xlsx'): ")
     path_output = input("Masukkan path untuk simpan hasil QR Code (misal: 'output/'): ")
     
-    url_column = input("Masukkan nama kolom untuk URL (contoh: 'link' atau 'url'): ")
+    url_column = input("Masukkan column yang berisi kolom untuk URL (contoh: 'link' atau 'url'): ")
     name_column = input("Masukkan nama kolom untuk nama file QR (contoh: 'kode', 'itemId', dll.): ")
     
     df = load_data(path_input)
