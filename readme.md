@@ -34,6 +34,7 @@ Ikuti langkah-langkah berikut untuk menginstal paket dan dependensi yang diperlu
         > source acad-venv/bin/activate
     **Windows**
         > acad-venv\Scripts\activate
+---
 
 ### Package Library
 
@@ -63,6 +64,7 @@ untuk memastikan paket sudah terinstall di sistem
     ```
     pip list
     ```
+---
 ### PDF Encrypter  
 
 Script untuk mengenkripsi file PDF menggunakan Bash tersedia di repository `acad-requirement`. Langkah-langkah penggunaan:  
@@ -77,28 +79,26 @@ Script untuk mengenkripsi file PDF menggunakan Bash tersedia di repository `acad
    - Password: Masukkan password untuk mengenkripsi seluruh file PDF.  
    - Selesai
 
-**Output:**  
-Setiap file PDF akan terenkripsi dan diberi tambahan nama `-secured`.  
+    **Output:**  
+    Setiap file PDF akan terenkripsi dan diberi tambahan nama `-secured`.  
 
 ---
+### Generate QR Code 
+Script untuk generate QR Code dapat dijalankan dengan: 
+    ```
+    python generate-qr-automatic.py
+    ```
 
-1. **Script Usage**  
-    **Generate QR Code**  
-    Script untuk generate QR Code dapat dijalankan dengan: 
+**Input dan Output:**  
+-   **Input**: Path CSV file dalam format absolute.  
+            ```
+            /Users/awtogar/Desktop/belajar/sumber-data.csv  
+            ```
+-   **Output**: Lokasi folder untuk menyimpan QR Code.  
         ```
-        python generate-qr-automatic.py
+        /Users/awtogar/Desktop/belajar/qr/codes/  
         ```
-
-    **Input dan Output:**  
-    -   **Input**: Path CSV file dalam format absolute.  
-              ```
-              /Users/awtogar/Desktop/belajar/sumber-data.csv  
-              ```
-    -   **Output**: Lokasi folder untuk menyimpan QR Code.  
-          ```
-          /Users/awtogar/Desktop/belajar/qr/codes/  
-          ```
           
-2. **Related Repository**  
+<!-- 1. **Related Repository**  
     Kunjungi repository utama untuk penjelasan proyek lebih lengkap:  
-    [🔗 ACAD Main Repository](https://github.com/awtogar/acad)
+    [🔗 ACAD Main Repository](https://github.com/awtogar/acad) -->
