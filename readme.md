@@ -49,11 +49,13 @@ Ikuti langkah-langkah berikut untuk menginstal paket dan dependensi yang diperlu
 2. **Uninstalling Dependensi**
    Jika package library yang di install mengalami error atau package sudah discontinued bisa di uninstall
    - **Cara Ke-1**
-        ``` pip uninstall <packagename>
+        ```
+        pip uninstall <packagename>
         ```
     - **Cara Ke-2**
       menguninstall sebuah package dari virtual environtment
-        ``` pipenv uninstall <packagename>
+        ```
+        pipenv uninstall <packagename>
         ```
 
 3. **Verifikasi Instalasi**
@@ -61,15 +63,7 @@ untuk memastikan paket sudah terinstall di sistem
     ```
     pip list
     ```
-
-
-    ## Setup  
-
- 
-
- 
-
-### Encrypt PDF  
+### PDF Encrypter  
 
 Script untuk mengenkripsi file PDF menggunakan Bash tersedia di repository `acad-requirement`. Langkah-langkah penggunaan:  
 
