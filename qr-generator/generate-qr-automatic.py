@@ -6,54 +6,50 @@ import math
 os.system('clear')
 
 def load_data(file_path):
+    # ngambil data sesuai format file
     if file_path.endswith('.csv'):
-        df = pd.read_csv(file_path)
-    elif file_path.endswith('.xlsx'):
-        df = pd.read_excel(file_path)
-    elif file_path.endswith('.txt'):
-        df = pd.read_excel(file_path)
+        return pd.read_csv(file_path)
+    elif file_path.endswith('.xlsx') or file_path.endswith('.txt'):
+        return pd.read_excel(file_path)
     else:
-        raise ValueError('format file harus csv, xlsx atau txt')
-    return df
+        raise ValueError('Format file harus csv, xlsx, atau txt')
 
 def generate_qr_codes(df, path_output, url_column, name_column):
-    # Buat folder output jika belum ada
-    if not os.path.exists(path_output):
-        os.makedirs(path_output)
+    # bikin folder output jika belum ada
+    os.makedirs(path_output, exist_ok=True)
     
-    for index, row in df.iterrows():
-        # Cek dan bersihkan nama file
-        file_name = row[name_column]
-        if isinstance(file_name, float) and math.isnan(file_name):
-            file_name = 'unknown'
-        else:
-            file_name = str(file_name).replace('/', '-')
-        
-        # Ambil URL untuk QR Code
+    for _, row in df.iterrows():
+        # cek dan bersihkan nama file
+        file_name = str(row[name_column]).replace('/', '-') if pd.notna(row[name_column]) else 'unknown'
         url = row[url_column]
         
         # Generate QR Code
         qr = qrcode.QRCode(
-            version=1,
-            error_correction=qrcode.constants.ERROR_CORRECT_L,
-            box_size=10,
-            border=4,
+            version=1, 
+            error_correction=qrcode.constants.ERROR_CORRECT_L, 
+            box_size=10, 
+            border=4
         )
         qr.add_data(url)
         qr.make(fit=True)
-
-        #QR Code terbentuk
+        
+        # Simpan QR Code sebagai file PNG
         img = qr.make_image(fill='black', back_color='white')
-        #QR code disimpan ke
         img.save(f"{path_output}/{file_name}.png")
 
 if __name__ == "__main__":
-    path_input = input("Masukkan path file CSV/XLSX kamu (misal: 'data/daftar_link.xlsx'): ")
-    path_output = input("Masukkan path untuk simpan hasil QR Code (misal: 'output/'): ")
+    print("=== QR Code Generator ===")
     
-    url_column = input("Masukkan column yang berisi kolom untuk URL (contoh: 'link' atau 'url'): ")
-    name_column = input("Masukkan nama kolom untuk nama file QR (contoh: 'kode', 'itemId', dll.): ")
+    # Input dari user
+    path_input = input("1. Masukkan path file data (CSV/XLSX): ").strip()
+    print("   ✓ File data berhasil dimuat.")
+    path_output = input("2. Masukkan folder tujuan untuk menyimpan QR Code (misal: 'output/'): ").strip()
+    print("   ✓ Folder output disiapkan.")
+    url_column = input("3. Masukkan nama kolom yang berisi URL/Link: ").strip()
+    name_column = input("4. Masukkan nama kolom untuk nama file QR Code: ").strip()
     
+    # Proses pembuatan QR Code
+    print("\nMemulai proses pembuatan QR Code...")
     df = load_data(path_input)
     generate_qr_codes(df, path_output, url_column, name_column)
     print("Semua QR Code berhasil dibuat!")
